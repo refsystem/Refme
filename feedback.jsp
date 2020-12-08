@@ -3,19 +3,48 @@
 <%@include file="../DBConnection/DbConnection.jsp" %>
 <%
 	String uid=(String)session.getAttribute("kuser");
-String name="",pic="";
-Statement stmt=connection.createStatement();
-Statement stmt1=connection.createStatement();
-Statement stmt2=connection.createStatement();
-Statement stmt3=connection.createStatement();
-Statement stmt4=connection.createStatement();
+String name=""; int stid=0,c=0,d=0,s=0;
+
+String crs="",dep="",parent="";
+System.out.println("out side "+uid);
+String sel1="select * from parent where user='"+uid+"'";
+ResultSet rs1=statement.executeQuery(sel1);
+if(rs1.next()){
+	System.out.println("inside if "+uid);
+	name=rs1.getString("stname");
+	stid=rs1.getInt("stid");
+	c=rs1.getInt("cid");
+	d=rs1.getInt("did");
+	s=rs1.getInt("sem");
+	parent=rs1.getString("father");
+	//System.out.println("inside if "+uid+c+" "+d+" "+s+" "+parent);
+	
+}
+
+String sel2="select crs_nme from crs_info where crsid='"+c+"'";
+ResultSet rs2=statement.executeQuery(sel2);
+if(rs2.next()){
+	crs=rs2.getString("crs_nme");
+	System.out.println("inside if "+crs);
+}
+
+String sel3="select dep_nme from dep_info where depid='"+d+"' ";
+ResultSet rs3=statement.executeQuery(sel3);
+if(rs3.next()){
+	dep=rs3.getString("dep_nme");
+	System.out.println("inside if "+dep);
+}
 
 if(request.getParameter("submit")!=null){
+	String course=request.getParameter("crs");
+	String department=request.getParameter("dpt");
+	String student=request.getParameter("gur");
 	String date=request.getParameter("date");
 	String sub=request.getParameter("sub");
 	String details=request.getParameter("details");
+	System.out.println("inside submit "+course+" "+department+" "+student+" "+parent+" "+date+" "+sub+" "+details);
 	int tp=1;
-	String ins="insert into feedback(date,sub,details,loginId,type)values('"+date+"','"+sub+"','"+details+"','"+uid+"','"+tp+"')";
+	String ins="insert into p_feedback(date,title,msg,loginId,parent,st_name,course,dept)values('"+date+"','"+sub+"','"+details+"','"+uid+"','"+parent+"','"+student+"','"+course+"','"+department+"')";
 	statement.executeUpdate(ins);
 	response.sendRedirect("feedback.jsp");
 }
@@ -154,25 +183,8 @@ if(request.getParameter("submit")!=null){
 							
                                                 </ul>
 					</li> 
-					 <li class="">
-						<a href="notes.jsp">
-							<i class="menu-icon fa fa-download"></i>
-							<span class="menu-text">Notes</span>
-						</a>
-
-						<b class="arrow"></b>
-                                        </li> 
+				
 					
-				    
-                                             
-                                        <li class="">
-						<a href="stud_notes.jsp">
-							<i class="menu-icon fa fa-pencil-square-o"></i>
-							<span class="menu-text">Add Shost Notes</span>
-						</a>
-
-						<b class="arrow"></b>
-                                        </li>   
                                         
                                          <li class="">
 						<a href="feedback.jsp">
@@ -248,6 +260,18 @@ if(request.getParameter("submit")!=null){
                                                                         
                                                                 <center><b>ADD FEEDBACK</b></center>
                                                                     </td>
+                                                                </tr>
+                                                                 <tr>
+                                                                    <td>Guardian of </td>
+                                                                    <td><input type="text" name="gur" class="form-control" value="<%=name%>" readonly="readonly"/></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Course</td>
+                                                                    <td><input type="text" name="crs"  value="<%=crs%>" readonly="readonly" class="form-control"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Department</td>
+                                                                    <td><input type="text" name="dpt" class="form-control" value="<%=dep%>" readonly="readonly"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Date</td>
