@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@include file="../DBConnection/DbConnection.jsp" %>
+<%
+String uid=(String)session.getAttribute("kuser");
+String sel_name="select nme from student_data where admnum='"+uid+"'";
+ResultSet rs_sel=statement.executeQuery(sel_name);
+String student="";
+if(rs_sel.next()){
+	student=rs_sel.getString("nme");
+}
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -110,8 +120,10 @@
 						</a>
 
 						<b class="arrow"></b>
-					</li>				
-                           <li class="">
+					</li>	
+					
+					
+					                 <li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon glyphicon glyphicon-star"></i>
 							<span class="menu-text">
@@ -144,50 +156,44 @@
 							
                                                 </ul>
 					</li> 
-								    
-					<li class="">
-						<a href="department.jsp">
-							<i class="menu-icon fa fa-graduation-cap"></i>
-							<span class="menu-text">Department</span>
+					 <li class="">
+						<a href="notes.jsp">
+							<i class="menu-icon fa fa-download"></i>
+							<span class="menu-text">Notes</span>
 						</a>
 
 						<b class="arrow"></b>
-                                        </li>     
-                                        <li class="">
-						<a href="faculty.jsp">
-							<i class="menu-icon fa fa-user"></i>
-							<span class="menu-text">Add Faculty</span>
-						</a>
-
-						<b class="arrow"></b>
-                                        </li>     
-                                        <li class="">
-						<a href="upsem.jsp">
-							<i class="menu-icon fa fa-users"></i>
-							<span class="menu-text">Update Semester</span>
-						</a>
-
-						<b class="arrow"></b>
-                                        </li>     
-                                  
+                                        </li> 
+					
+				    
                                              
                                         <li class="">
-						<a href="subject.jsp">
-							<i class="menu-icon fa fa-plus"></i>
-							<span class="menu-text">Add Subject</span>
+						<a href="stud_notes.jsp">
+							<i class="menu-icon fa fa-pencil-square-o"></i>
+							<span class="menu-text">Add Shost Notes</span>
+						</a>
+
+						<b class="arrow"></b>
+                                        </li>   
+                                        
+                                         <li class="">
+						<a href="feedback.jsp">
+							<i class="menu-icon fa fa-paper-plane"></i>
+							<span class="menu-text">Feedbacks</span>
+						</a>
+
+						<b class="arrow"></b>
+                                        </li>   
+                                        <li class="">
+						<a href="marks.jsp">
+							<i class="menu-icon fa fa-eye"></i>
+							<span class="menu-text">View Marks</span>
 						</a>
 
 						<b class="arrow"></b>
                                         </li>   
                                                                                                  
-					 <li class="">
-						<a href="status.jsp">
-							<i class="menu-icon glyphicon glyphicon-certificate"></i>
-							<span class="menu-text">Student Status</span>
-						</a>
-
-						<b class="arrow"></b>
-                                        </li>   
+					
                                         <li class="">
                                             <a href="../logout.jsp">
 							<i class="menu-icon fa fa-sign-out"></i>
@@ -221,9 +227,9 @@
 						<ul class="breadcrumb">
 							<li>
 								<i class="ace-icon fa fa-home home-icon"></i>
-								<a href="#">Home</a>
+								<a href="#">WELCOME</a>
 							</li>
-							<li class="active">ADMINISTRATOR</li>
+							<li class="active"><%=student.toUpperCase() %></li>
 						</ul><!-- /.breadcrumb -->
 
 						
@@ -237,7 +243,6 @@
 						<!-- /section:settings.box -->
 						<div class="page-header">
 							<h1>
-								Dashboard
 								
 							</h1>
 						</div><!-- /.page-header -->
@@ -287,31 +292,41 @@
             </table>
             </div>
              <div class="col-lg-6" style="margin-top: 30px;">
-             <form action="acheivements.jsp"  enctype="multipart/form-data" method="post">
+             
+             <%
+             	String selAch="select * from acheivements where loginId='"+logId+"' and type=1";
+             	ResultSet rsAch=statement.executeQuery(selAch);
+             	while(rsAch.next()){
+             
+             %>
+             
             				<table class="table table-bordered table-condensed table-hover table-striped">
-                			<tr>
-                    							<th colspan="2"> <center>ACHEIVEMENTS DETAILS</center></th>
-                       							
-                			</tr>
-                			<tr>
-                    							<th>Photo</th>
-                    							<th><input type="file" name="f1" >
-                    							<input type="hidden" name="logId" value="<%=logId%>">
-                    							</th>
-                    							
-                       							
-                			</tr>
-                			<tr>
-                    							<th>Discription</th>
-                    							<th><textarea name="dis" style="width: 100%; height: auto;"></textarea></th>
-                       							
-                			</tr>
-                			<tr>
-                    							<th colspan="2"> <center><input type="submit" value="SUBMIT" name="sub"></center></th>
-                       							
-                			</tr>
+            				
+            				<tr>
+                    							<td style="width: 50%"><center>
+                       							 <img src="../photos/<%=rsAch.getString("photo") %>" class="img img-responsive img-thumbnail" />
+                        
+                       					
+                        
+               										 </center>
+          
+                
+                								</td>
+                								<td>
+                   											 <b><%=rsAch.getString("discription") %></b>               
+                								</td>
+                </tr>
+            				
+            				
+            				
+            				
+                			
          				   </table>
-         				   </form>
+         				   
+         				   <%
+             	}
+         				   %>
+         				  
              </div>
             
             

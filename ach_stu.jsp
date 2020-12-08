@@ -87,7 +87,26 @@ if(request.getParameter("sub")!=null){
 				})
 			});
 			
+		/* 	$("#sem").change(function(){
+				
+				$("#studid").html("<option>Select Student Name<option>");
+				var course1=$("#cid").val();
+				var sem1=$("#sem").val();
+				var dept1=$("#did").val();
+			//	alert("course "+course1+" "+sem1+" "+dept1);
+				var std="",ad="";
+				$.getJSON("jsonStudent.jsp?crs="+course1+"&dep="+dept1+"&sem="+sem1,function(ja){
+					for(var i=0;i<ja.length;i++){
+						std=ja[i].ksub;
+						ad=ja[i].kad;
+						$("#studid").append("<option>"+std+"  ("+ad+")<option>");
+						$("#adid").val(ad);
+					}
+				})
+			});
+			 */
 	
+			
 		});
 		</script>
 	</head>
@@ -193,50 +212,43 @@ if(request.getParameter("sub")!=null){
 							
                                                 </ul>
 					</li> 
-								
-                              
-					<li class="">
-						<a href="department.jsp">
-							<i class="menu-icon fa fa-graduation-cap"></i>
-							<span class="menu-text">Department</span>
+					 <li class="">
+						<a href="notes.jsp">
+							<i class="menu-icon fa fa-download"></i>
+							<span class="menu-text">Notes</span>
 						</a>
 
 						<b class="arrow"></b>
-                                        </li>     
-                                        <li class="">
-						<a href="faculty.jsp">
-							<i class="menu-icon fa fa-user"></i>
-							<span class="menu-text">Add Faculty</span>
-						</a>
-
-						<b class="arrow"></b>
-                                        </li>     
-                                        <li class="">
-						<a href="upsem.jsp">
-							<i class="menu-icon fa fa-users"></i>
-							<span class="menu-text">Update Semester</span>
-						</a>
-
-						<b class="arrow"></b>
-                                        </li>     
-                                  
+                                        </li> 
+					
+				    
                                              
                                         <li class="">
-						<a href="subject.jsp">
-							<i class="menu-icon fa fa-plus"></i>
-							<span class="menu-text">Add Subject</span>
+						<a href="stud_notes.jsp">
+							<i class="menu-icon fa fa-pencil-square-o"></i>
+							<span class="menu-text">Add Shost Notes</span>
 						</a>
 
 						<b class="arrow"></b>
                                         </li>   
-                                          <li class="">
-						<a href="status.jsp">
-							<i class="menu-icon glyphicon glyphicon-certificate"></i>
-							<span class="menu-text">Student Status</span>
+                                        
+                                         <li class="">
+						<a href="feedback.jsp">
+							<i class="menu-icon fa fa-paper-plane"></i>
+							<span class="menu-text">Feedbacks</span>
 						</a>
 
 						<b class="arrow"></b>
-                                        </li>                                                           
+                                        </li>   
+                                        <li class="">
+						<a href="marks.jsp">
+							<i class="menu-icon fa fa-eye"></i>
+							<span class="menu-text">View Marks</span>
+						</a>
+
+						<b class="arrow"></b>
+                                        </li>   
+                                                                                                 
 					
                                         <li class="">
                                             <a href="../logout.jsp">
@@ -370,7 +382,7 @@ if(request.getParameter("sub")!=null){
                                                             <table class="table table-bordered table-condensed table-responsive table-striped">
                                                                 <tr>
                                                                     <td colspan="2">
-                                                                <center><b>STUDENTS DETAILS</b></center>
+                                                                <center><b>STUDENT DETAILS</b></center>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -432,7 +444,7 @@ if(request.getParameter("sub")!=null){
                                                                     </td>
                                                                 </tr> -->
                                                                 <tr>
-                                                                    <td colspan="2"><center><input type="submit" name="sub" value="ADD NOW" class="btn btn-sm btn-danger" /></center></td>
+                                                                    <td colspan="2"><center><input type="submit" name="sub" value="VIEW ACHEIVEMENTS" class="btn btn-sm btn-danger" /></center></td>
                                                                 </tr>
                                                             </table>
                                                             </form>
@@ -467,45 +479,38 @@ catch(Exception e){
 																		studentName=rs_st.getString("nme");
 																		admissionNum=rs_st.getString("admnum");
 																		
-																		%>
-																		<form action="studentAction.jsp"  enctype="multipart/form-data" method="post">
-																		 <table class="table table-bordered table-condensed table-condensed">
-                                                                <tr>
-                                                                    <td colspan="2">
-                                                                        <a href="ach_stu.jsp" class="label label-warning pull-right">BACK</a>
-                                                                <center><b>ADD ACHEIVEMENT DETAILS</b></center>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Student Name</td>
-                                                                    <td><input type="text" name="sn" class="form-control" value="<%=studentName %>" readonly="readonly"/></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Admission Number</td>
-                                                                    <td><input type="text" name="an" class="form-control" value="<%=admissionNum %>" readonly="readonly"></td>
-                                                                </tr>
-                                                                <tr>
-                    												<th>Photo</th>
-                    												<th><input type="file" name="f1" >
-                    													<input type="hidden" name="logId" value="<%=studid%>">
-                    												</th>
-                    							
-                       							
-                												</tr>
-                												<tr>
-                    													<th>Description</th>
-                    													<th><textarea name="dis" style="width: 100%; height: auto;"></textarea></th>
-                       							
-                												</tr>
-                                                               
-                                                                <tr>
-                                                                    <td colspan="2"><center>
-                                                                        <input type="submit" name="psub" value="ADD NOW" class="btn btn-sm btn-danger" />
-                                                                </center></td>
-                                                                </tr>
-                                                                </table>
-                                                                </form>
-																		<%
+																		String selAch="select * from acheivements where loginId='"+studid+"' and type=2";
+														             	ResultSet rsAch=statement.executeQuery(selAch);
+														             	while(rsAch.next()){
+														                    
+														                    %>
+														                    
+														                   				<table class="table table-bordered table-condensed table-hover table-striped">
+														                   				
+														                   				<tr>
+														                           							<td style="width: 50%"><center>
+														                              							 <img src="../photos/<%=rsAch.getString("photo") %>" class="img img-responsive img-thumbnail" />
+														                               
+														                              					
+														                               
+														                      										 </center>
+														                 
+														                       
+														                       								</td>
+														                       								<td>
+														                          											 <b><%=rsAch.getString("discription") %></b>               
+														                       								</td>
+														                       </tr>
+														                   				
+														                   				
+														                   				
+														                   				
+														                       			
+														                				   </table>
+														                				   
+														                				   <%
+														                    	}
+																	
 																	}
 																}
 																

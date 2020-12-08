@@ -10,6 +10,16 @@ Statement stmt2=connection.createStatement();
 Statement stmt3=connection.createStatement();
 Statement stmt4=connection.createStatement();
 
+if(request.getParameter("submit")!=null){
+	String date=request.getParameter("date");
+	String sub=request.getParameter("sub");
+	String details=request.getParameter("details");
+	int tp=1;
+	String ins="insert into feedback(date,sub,details,loginId,type)values('"+date+"','"+sub+"','"+details+"','"+uid+"','"+tp+"')";
+	statement.executeUpdate(ins);
+	response.sendRedirect("feedback.jsp");
+}
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -213,7 +223,7 @@ Statement stmt4=connection.createStatement();
 						</script>
 
 						<!-- /.breadcrumb -->
-                                                <div style="padding: 5px; margin-left: 15px;"><b>PASS OUT STUDENTS DATA</b></div>
+                                                <div style="padding: 5px; margin-left: 15px;"><b>POST FEEDBACK TO FACULTIES</b></div>
 						
 					</div>
 
@@ -231,58 +241,34 @@ Statement stmt4=connection.createStatement();
                                                         <div class="col-lg-8">
                                                        
                                                             
-                                                        <table class="table table-bordered table-condensed table-hover table-striped">
-            				
-            				<tr>
-                							
-                								<%
-                								
-                								int i=0;
-                									String sel2="select * from old_stud_status";
-                									ResultSet rs2=statement2.executeQuery(sel2);
-                									while(rs2.next()){
-                										i++;
-                										%>
-                											<td>
-                											 <img src="../photos/<%=rs2.getString("photo") %>" style="border-radius: 50%; height: 150px;width: 150px;"/>
-                											<br>
-                											
-                											Name : <b><%=rs2.getString("name") %></b>
-                												<br>
-                											Contact : <b><%=rs2.getString("contact") %></b>
-                											<br>
-                											Course : <%=rs2.getString("course") %>
-                											<br>
-                											Department : <%=rs2.getString("dept") %>
-                											<br>
-                										<i style="margin-top: 10px;">	Academic Year : <%=rs2.getString("acyr") %></i>
-                											<br>
-                											<br>
-                									<i style="margin-top: 20px;">	 <%=rs2.getString("description") %></i>
-                											</td>
-                											
-                										
-                											<%
-                										if(i==4){
-                											i=0;
-                											%>
-                												</tr>
-                												<tr>
-                											<%
-                										}
-                							}
-                									
-                								%>
-                   											           
-                								
-                </tr>
-            				
-            				
-            				
-            				
-                			
-         				   </table>
-         	
+                                                        <form method="get">
+                                                                <table class="table table-bordered table-condensed table-condensed">
+                                                                <tr>
+                                                                    <td colspan="2">
+                                                                        
+                                                                <center><b>ADD FEEDBACK</b></center>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Date</td>
+                                                                    <td><input type="date" name="date" class="form-control"/></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Subject</td>
+                                                                    <td><input type="text" name="sub" class="form-control"></td>
+                                                                </tr>
+                                                             
+                                                                 <tr>
+                                                                    <td>Content</td>
+                                                                    <td><textarea class="form-control" name="details"></textarea>
+                                                                    
+                                                                    </td>
+                                                                </tr> 
+                                                            <tr>
+                                                                    <td colspan="2"><center><input type="submit" name="submit" value="POST NOW" class="btn btn-sm btn-danger" /></center></td>
+                                                                </tr>
+                                                            </table>
+                                                            </form>
                                                        
                                       
                                                           

@@ -4,12 +4,50 @@
 <%
 	String uid=(String)session.getAttribute("kuser");
 String name="",pic="";
-Statement stmt=connection.createStatement();
-Statement stmt1=connection.createStatement();
-Statement stmt2=connection.createStatement();
-Statement stmt3=connection.createStatement();
-Statement stmt4=connection.createStatement();
+String s1="",s2="",s3="",s4="",s5="",s6="",s7="",s8="";
+String sid="";
+String sel2="select stid from parent where user='"+uid+"'";
+ResultSet rs2=statement.executeQuery(sel2);
+if(rs2.next()){
+	sid=rs2.getString("stid");
+}
 
+String sel1="select * from student_data where id='"+sid+"'";
+ResultSet rs=statement.executeQuery(sel1);
+if(rs.next()){
+	s1=rs.getString("sem1");
+	s2=rs.getString("sem2");
+	s3=rs.getString("sem3");
+	s4=rs.getString("sem4");
+	s5=rs.getString("sem5");
+	s6=rs.getString("sem6");
+	s7=rs.getString("sem7");
+	s8=rs.getString("sem8");
+}
+if(s1==null){
+	s1="Not Available";
+}
+if(s2==null){
+	s2="Not Available";
+}
+if(s3==null){
+	s3="Not Available";
+}
+if(s4==null){
+	s4="Not Available";
+}
+if(s5==null){
+	s5="Not Available";
+}
+if(s6==null){
+	s6="Not Available";
+}
+if(s7==null){
+	s7="Not Available";
+}
+if(s8==null){
+	s8="Not Available";
+}
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -144,25 +182,8 @@ Statement stmt4=connection.createStatement();
 							
                                                 </ul>
 					</li> 
-					 <li class="">
-						<a href="notes.jsp">
-							<i class="menu-icon fa fa-download"></i>
-							<span class="menu-text">Notes</span>
-						</a>
-
-						<b class="arrow"></b>
-                                        </li> 
+				
 					
-				    
-                                             
-                                        <li class="">
-						<a href="stud_notes.jsp">
-							<i class="menu-icon fa fa-pencil-square-o"></i>
-							<span class="menu-text">Add Shost Notes</span>
-						</a>
-
-						<b class="arrow"></b>
-                                        </li>   
                                         
                                          <li class="">
 						<a href="feedback.jsp">
@@ -213,7 +234,7 @@ Statement stmt4=connection.createStatement();
 						</script>
 
 						<!-- /.breadcrumb -->
-                                                <div style="padding: 5px; margin-left: 15px;"><b>PASS OUT STUDENTS DATA</b></div>
+                                                <div style="padding: 5px; margin-left: 15px;"><b>VIEW SEMESTER WISE MARKS</b></div>
 						
 					</div>
 
@@ -231,61 +252,49 @@ Statement stmt4=connection.createStatement();
                                                         <div class="col-lg-8">
                                                        
                                                             
-                                                        <table class="table table-bordered table-condensed table-hover table-striped">
-            				
-            				<tr>
-                							
-                								<%
-                								
-                								int i=0;
-                									String sel2="select * from old_stud_status";
-                									ResultSet rs2=statement2.executeQuery(sel2);
-                									while(rs2.next()){
-                										i++;
-                										%>
-                											<td>
-                											 <img src="../photos/<%=rs2.getString("photo") %>" style="border-radius: 50%; height: 150px;width: 150px;"/>
-                											<br>
-                											
-                											Name : <b><%=rs2.getString("name") %></b>
-                												<br>
-                											Contact : <b><%=rs2.getString("contact") %></b>
-                											<br>
-                											Course : <%=rs2.getString("course") %>
-                											<br>
-                											Department : <%=rs2.getString("dept") %>
-                											<br>
-                										<i style="margin-top: 10px;">	Academic Year : <%=rs2.getString("acyr") %></i>
-                											<br>
-                											<br>
-                									<i style="margin-top: 20px;">	 <%=rs2.getString("description") %></i>
-                											</td>
-                											
-                										
-                											<%
-                										if(i==4){
-                											i=0;
-                											%>
-                												</tr>
-                												<tr>
-                											<%
-                										}
-                							}
-                									
-                								%>
-                   											           
-                								
-                </tr>
-            				
-            				
-            				
-            				
-                			
-         				   </table>
-         	
                                                        
-                                      
+                                                                <table class="table table-bordered table-condensed table-condensed">
+                                                                <tr>
+                                                                    <td colspan="2">
+                                                                        
+                                                                <center><b>MARK LIST</b></center>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>SEMESTER 1</td>
+                                                                    <td><input type="text" name="sem1" class="form-control" value="<%=s1 %>" readonly="readonly"/></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>SEMESTER 2</td>
+                                                                    <td><input type="text" name="sem2" class="form-control" value="<%=s2 %>" readonly="readonly"/></td>
+                                                                </tr>
+                                                             <tr>
+                                                                    <td>SEMESTER 3</td>
+                                                                    <td><input type="text" name="sem3" class="form-control" value="<%=s3 %>" readonly="readonly"/></td>
+                                                                </tr>
+                                                            <tr>
+                                                                    <td>SEMESTER 4</td>
+                                                                    <td><input type="text" name="sem4" class="form-control" value="<%=s4 %>" readonly="readonly"/></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>SEMESTER 5</td>
+                                                                    <td><input type="text" name="sem5" class="form-control" value="<%=s5 %>" readonly="readonly"/></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>SEMESTER 6</td>
+                                                                    <td><input type="text" name="sem6" class="form-control" value="<%=s6 %>" readonly="readonly"/></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>SEMESTER 7</td>
+                                                                    <td><input type="text" name="sem7" class="form-control" value="<%=s7 %>" readonly="readonly"/></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>SEMESTER 8</td>
+                                                                    <td><input type="text" name="sem8" class="form-control" value="<%=s8 %>" readonly="readonly"/></td>
+                                                                </tr>
+                                                            </table>
                                                           
+                                      
                                                         </div>
                                                         <div class="col-lg-4"></div>
                                                     </div><!-- /.col -->
