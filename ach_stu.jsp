@@ -212,25 +212,8 @@ if(request.getParameter("sub")!=null){
 							
                                                 </ul>
 					</li> 
-					 <li class="">
-						<a href="notes.jsp">
-							<i class="menu-icon fa fa-download"></i>
-							<span class="menu-text">Notes</span>
-						</a>
-
-						<b class="arrow"></b>
-                                        </li> 
+				
 					
-				    
-                                             
-                                        <li class="">
-						<a href="stud_notes.jsp">
-							<i class="menu-icon fa fa-pencil-square-o"></i>
-							<span class="menu-text">Add Shost Notes</span>
-						</a>
-
-						<b class="arrow"></b>
-                                        </li>   
                                         
                                          <li class="">
 						<a href="feedback.jsp">
@@ -382,7 +365,7 @@ if(request.getParameter("sub")!=null){
                                                             <table class="table table-bordered table-condensed table-responsive table-striped">
                                                                 <tr>
                                                                     <td colspan="2">
-                                                                <center><b>STUDENT DETAILS</b></center>
+                                                                <center><b>CHOOSE STUDENT INFO DETAILS</b></center>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>

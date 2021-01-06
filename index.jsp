@@ -144,25 +144,8 @@ Statement stmt4=connection.createStatement();
 							
                                                 </ul>
 					</li> 
-					 <li class="">
-						<a href="notes.jsp">
-							<i class="menu-icon fa fa-download"></i>
-							<span class="menu-text">Notes</span>
-						</a>
-
-						<b class="arrow"></b>
-                                        </li> 
+				
 					
-				    
-                                             
-                                        <li class="">
-						<a href="stud_notes.jsp">
-							<i class="menu-icon fa fa-pencil-square-o"></i>
-							<span class="menu-text">Add Shost Notes</span>
-						</a>
-
-						<b class="arrow"></b>
-                                        </li>   
                                         
                                          <li class="">
 						<a href="feedback.jsp">
@@ -213,7 +196,7 @@ Statement stmt4=connection.createStatement();
 						</script>
 
 						<!-- /.breadcrumb -->
-                                                <div style="padding: 5px; margin-left: 15px;"><b>PASS OUT STUDENTS DATA</b></div>
+                                                <div style="padding: 5px; margin-left: 15px;"><b>PASSOUT STUDENTS STATUS</b></div>
 						
 					</div>
 
@@ -231,7 +214,9 @@ Statement stmt4=connection.createStatement();
                                                         <div class="col-lg-8">
                                                        
                                                             
-                                                        <table class="table table-bordered table-condensed table-hover table-striped">
+              
+             
+            				<table class="table table-bordered table-condensed table-hover table-striped">
             				
             				<tr>
                 							
@@ -283,7 +268,6 @@ Statement stmt4=connection.createStatement();
                 			
          				   </table>
          	
-                                                       
                                       
                                                           
                                                         </div>

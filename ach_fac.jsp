@@ -3,11 +3,11 @@
 <%@include file="../DBConnection/DbConnection.jsp" %>
 <%
 String uid=(String)session.getAttribute("kuser");
-String sel_name="select nme from student_data where admnum='"+uid+"'";
+String sel_name="select father from parent where user='"+uid+"'";
 ResultSet rs_sel=statement.executeQuery(sel_name);
 String student="";
 if(rs_sel.next()){
-	student=rs_sel.getString("nme");
+	student=rs_sel.getString("father");
 }
 
 %>
@@ -156,25 +156,8 @@ if(rs_sel.next()){
 							
                                                 </ul>
 					</li> 
-					 <li class="">
-						<a href="notes.jsp">
-							<i class="menu-icon fa fa-download"></i>
-							<span class="menu-text">Notes</span>
-						</a>
-
-						<b class="arrow"></b>
-                                        </li> 
+				
 					
-				    
-                                             
-                                        <li class="">
-						<a href="stud_notes.jsp">
-							<i class="menu-icon fa fa-pencil-square-o"></i>
-							<span class="menu-text">Add Shost Notes</span>
-						</a>
-
-						<b class="arrow"></b>
-                                        </li>   
                                         
                                          <li class="">
 						<a href="feedback.jsp">
